@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 8310179866058810443}
   - component: {fileID: 8310179866058810440}
   - component: {fileID: 8310179866058810441}
+  - component: {fileID: 8514370643986333448}
   m_Layer: 0
   m_Name: InvincibilityItem
-  m_TagString: Untagged
+  m_TagString: ITEM
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -95,3 +96,15 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &8514370643986333448
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8310179866058810438}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 307229829c7a2304890ff0ae12474755, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

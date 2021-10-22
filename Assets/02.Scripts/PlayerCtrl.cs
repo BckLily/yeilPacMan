@@ -11,7 +11,7 @@ public enum PlayerState
 
 public class PlayerCtrl : MonoBehaviour
 {
-    [SerializeField] private float moveSpeed = 4f;
+    [SerializeField] private float moveSpeed;
 
     enum PlayerDir
     {
@@ -22,6 +22,7 @@ public class PlayerCtrl : MonoBehaviour
     }
 
     [SerializeField] List<Transform> playerDirList = new List<Transform>();
+    [SerializeField] PlayerState playerState => GameManager.Instance.playerState;
 
     // Start is called before the first frame update
     void Start()
@@ -29,12 +30,7 @@ public class PlayerCtrl : MonoBehaviour
         GameManager.Instance.playerTr = GetComponent<Transform>();
         GameManager.Instance.playerForwardTr = playerDirList[(int)PlayerDir.Up];
         GameManager.Instance.playerBackTr = playerDirList[(int)PlayerDir.Down];
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
+        moveSpeed = 5.5f;
     }
 
     private void LateUpdate()
@@ -65,5 +61,25 @@ public class PlayerCtrl : MonoBehaviour
 
         transform.Translate(moveDir * Time.deltaTime * moveSpeed);
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("ENEMY"))
+        {
+            switch (playerState)
+            {
+                case PlayerState.Idle:
+                    GameManager.Instance.GameOver();
+
+                    break;
+                case PlayerState.Invincibility:
+                    other.GetComponent<EnemyBase>().EnemyDie();
+
+                    break;
+            }
+        }
+
+    }
+
 
 }
