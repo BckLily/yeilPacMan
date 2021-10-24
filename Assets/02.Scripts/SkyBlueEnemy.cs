@@ -23,9 +23,10 @@ public class SkyBlueEnemy : EnemyBase
                     if (Vector3.Distance(transform.position, GameManager.Instance.playerTr.position) >= playerTargetDist)
                     {
                         Vector3 centerPos = GameManager.Instance.playerTr.position + (GameManager.Instance.playerForwardTr.localPosition * 4);
-                        centerPos.x = Mathf.Clamp(centerPos.x, -maxXPosition, maxXPosition);
-                        centerPos.z = Mathf.Clamp(centerPos.z, -maxZPosition, maxZPosition);
-                        agent.SetDestination((2 * centerPos) - redTransform.position);
+                        Vector3 destination = (2 * centerPos) - redTransform.position;
+                        destination.x = Mathf.Clamp(destination.x, -maxXPosition, maxXPosition);
+                        destination.z = Mathf.Clamp(destination.z, -maxZPosition, maxZPosition);
+                        agent.SetDestination(destination);
                     }
                     // 플레이어와 가까우면 플레이어를 쫒아감.
                     else
@@ -41,9 +42,10 @@ public class SkyBlueEnemy : EnemyBase
                     if (Vector3.Distance(transform.position, GameManager.Instance.playerTr.position) >= playerTargetDist)
                     {
                         Vector3 centerPos = GameManager.Instance.playerTr.position + (GameManager.Instance.playerForwardTr.localPosition * 4);
-                        centerPos.x = Mathf.Clamp(centerPos.x, -maxXPosition, maxXPosition);
-                        centerPos.z = Mathf.Clamp(centerPos.z, -maxZPosition, maxZPosition);
-                        agent.SetDestination(runMatrix.MultiplyPoint3x4((2 * centerPos) - redTransform.position));
+                        Vector3 destination = (2 * centerPos) - redTransform.position;
+                        destination.x = Mathf.Clamp(destination.x, -maxXPosition, maxXPosition);
+                        destination.z = Mathf.Clamp(destination.z, -maxZPosition, maxZPosition);
+                        agent.SetDestination(runMatrix.MultiplyPoint3x4(destination));
                     }
                     // 플레이어와 가까우면 플레이어를 쫒아감.
                     else
@@ -52,7 +54,6 @@ public class SkyBlueEnemy : EnemyBase
 
                     break;
                 case EnemyState.Die:
-
                     agent.SetDestination(GameManager.Instance.enemyRevivePoint.position);
 
                     break;

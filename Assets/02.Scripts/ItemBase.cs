@@ -18,10 +18,15 @@ public abstract class ItemBase : MonoBehaviour
     {
         GameManager.Instance.itemList.Remove(this);
 
-        // 아이템 다 먹었나 확인
-        if (GameManager.Instance.remainItem == 0)
+        try
         {
-            GameManager.Instance.GameClear();
+            // 아이템 다 먹었나 확인
+            if (GameManager.Instance.remainItem == 0)
+                GameManager.Instance.GameClear();
+        }
+        catch (System.Exception e)
+        {
+            Debug.LogWarning(e);
         }
     }
 
