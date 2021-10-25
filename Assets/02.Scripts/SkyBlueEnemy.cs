@@ -61,4 +61,12 @@ public class SkyBlueEnemy : EnemyBase
             yield return new WaitForSeconds(0.25f);
         }
     }
+
+    protected override void OnDrawGizmos()
+    {
+        Gizmos.color = Color.white;
+        Gizmos.DrawWireSphere(targetPos, 0.5f);
+    }
+
+
 }

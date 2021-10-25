@@ -22,9 +22,12 @@ public class PinkEnemy : EnemyBase
 
                     if (Vector3.Distance(transform.position, GameManager.Instance.playerTr.position) >= playerTargetDist)
                         agent.SetDestination(new Vector3(Mathf.Clamp(GameManager.Instance.playerForwardTr.position.x
-                                                         + (GameManager.Instance.playerForwardTr.localPosition.x * 6), -maxXPosition, maxXPosition),
+                                                         + (GameManager.Instance.playerForwardTr.localPosition.x * 6),
+                                                         -maxXPosition, maxXPosition),
                                                          GameManager.Instance.playerForwardTr.position.y,
-                                                         GameManager.Instance.playerForwardTr.position.z));
+                                                         Mathf.Clamp(GameManager.Instance.playerForwardTr.position.z
+                                                         + (GameManager.Instance.playerForwardTr.localPosition.z * 6),
+                                                         -maxZPosition, maxZPosition)));
                     // 거리가 가까우면 플레이어에게 간다.` 
                     else
                         agent.SetDestination(GameManager.Instance.playerTr.position);
@@ -38,9 +41,12 @@ public class PinkEnemy : EnemyBase
                 case EnemyState.Run:
                     if (Vector3.Distance(transform.position, GameManager.Instance.playerTr.position) >= playerTargetDist)
                         agent.SetDestination(runMatrix.MultiplyPoint3x4(new Vector3(Mathf.Clamp(GameManager.Instance.playerForwardTr.position.x
-                                                         + (GameManager.Instance.playerForwardTr.localPosition.x * 6), -maxXPosition, maxXPosition),
-                                                         GameManager.Instance.playerForwardTr.position.y,
-                                                         GameManager.Instance.playerForwardTr.position.z)));
+                                                                                    + (GameManager.Instance.playerForwardTr.localPosition.x * 6),
+                                                                                    -maxXPosition, maxXPosition),
+                                                                                    GameManager.Instance.playerForwardTr.position.y,
+                                                                                    Mathf.Clamp(GameManager.Instance.playerForwardTr.position.z
+                                                                                    + (GameManager.Instance.playerForwardTr.localPosition.z * 6),
+                                                                                    -maxZPosition, maxZPosition))));
                     else
                         agent.SetDestination(runMatrix.MultiplyPoint3x4(GameManager.Instance.playerTr.position));
 
@@ -54,4 +60,12 @@ public class PinkEnemy : EnemyBase
             yield return new WaitForSeconds(0.25f);
         }
     }
+
+    protected override void OnDrawGizmos()
+    {
+        Gizmos.color = Color.magenta;
+        Gizmos.DrawWireSphere(targetPos, 0.5f);
+    }
+
+
 }

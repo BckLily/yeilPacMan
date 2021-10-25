@@ -43,4 +43,12 @@ public class RedEnemy : EnemyBase
     }
 
 
+    protected override void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(targetPos, 0.5f);
+    }
+
+
+
 }

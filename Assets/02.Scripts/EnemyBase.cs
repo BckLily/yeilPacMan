@@ -143,7 +143,7 @@ public abstract class EnemyBase : MonoBehaviour
         StartCoroutine(SetDestination());
         moveSpeed = 5f;
         agent.speed = moveSpeed;
-        playerTargetDist = 6.5f;
+        playerTargetDist = 4f;
         maxXPosition = 12.75f;
         maxZPosition = 10.25f;
 
@@ -161,7 +161,11 @@ public abstract class EnemyBase : MonoBehaviour
     {
         targetPos = agent.destination;
         maintainTime += Time.deltaTime;
+
     }
+
+    protected abstract void OnDrawGizmos();
+
 
     public void EnemyRun()
     {
@@ -200,7 +204,7 @@ public abstract class EnemyBase : MonoBehaviour
     public void EnemyDie()
     {
         _renderer.material.color = new Color(0.25f, 0.25f, 0.25f, 0.1f);
-
+        GameManager.Instance.IncScore(20);
         enemyState = EnemyState.Die;
     }
 
