@@ -41,7 +41,6 @@ public class GameManager : MonoBehaviour
         if (instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(this.gameObject);
         }
         else
             Destroy(this.gameObject);
@@ -56,6 +55,7 @@ public class GameManager : MonoBehaviour
 
     private void OnEnable()
     {
+        Time.timeScale = 1f;
         var items = GameObject.FindGameObjectsWithTag("ITEM");
         foreach (var item in items)
         {
@@ -65,6 +65,14 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+
+        if (gameOverPanel.gameObject.activeSelf && Input.GetKeyDown(KeyCode.R))
+        {
+            UnityEngine.SceneManagement.SceneManager.LoadScene("SampleScene");
+            Time.timeScale = 1f;
+        }
+
+
         if (Input.GetKeyDown(KeyCode.Escape))
         {
 #if UNITY_EDITOR
@@ -138,4 +146,7 @@ public class GameManager : MonoBehaviour
         gameClearPanel.gameObject.SetActive(true);
         Time.timeScale = 0f;
     }
+
+
+
 }
